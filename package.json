@@ -16,7 +16,9 @@
     "url": "https://github.com/leonlin14/react-boilerplate/issues"
   },
   "homepage": "https://github.com/leonlin14/react-boilerplate#readme",
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack": "^1.13.2"
+  },
   "dependencies": {
     "koa": "^1.2.1",
     "koa-locale": "^1.2.0",
