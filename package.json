@@ -1,0 +1,23 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leonlin14/react-boilerplate.git"
+  },
+  "author": "Leon <leonlin14@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leonlin14/react-boilerplate/issues"
+  },
+  "homepage": "https://github.com/leonlin14/react-boilerplate#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "koa": "^1.2.1"
+  }
+}
