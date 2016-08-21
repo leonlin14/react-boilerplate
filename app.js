@@ -1,13 +1,19 @@
 var koa = require('koa');
 var app = koa();
 
+// Loading settings
+var settings = require('./lib/config.js');
+if (!settings) {
+	console.error('Failed to load settings');
+	process.exit(1);
+}
+
+
 app.use(function *(){
   this.body = 'Hello World';
 });
 
-var port = 3001;
-
 // Start the server
-app.listen(port, function() {
-	console.log('server is running at port', port);
+app.listen(settings.general.server.port, function() {
+	console.log('server is running at port', settings.general.server.port);
 });
