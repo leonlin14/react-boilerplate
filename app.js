@@ -3,6 +3,8 @@ var path = require('path');
 var serve = require('koa-static');
 var Router = require('koa-router');
 var views = require('koa-views');
+var logger = require('koa-logger');
+var locale = require('koa-locale');
 
 // Loading settings
 var settings = require('./lib/config.js');
@@ -15,6 +17,12 @@ var app = koa();
 
 // Static file path
 app.use(serve(path.join(__dirname, 'public')));
+
+// Show server logger
+app.use(logger());
+
+// Setup default locale
+locale(app, 'en-US');
 
 // Create render
 app.use(views(__dirname + '/views', {
