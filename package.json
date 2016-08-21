@@ -18,6 +18,7 @@
   "homepage": "https://github.com/leonlin14/react-boilerplate#readme",
   "devDependencies": {},
   "dependencies": {
-    "koa": "^1.2.1"
+    "koa": "^1.2.1",
+    "koa-static": "^2.0.0"
   }
 }
