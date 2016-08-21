@@ -34,9 +34,8 @@ app.use(views(__dirname + '/views', {
 
 var router = new Router();
 
-router.get('/', function *() {
-    yield this.render('test');
-});
+// Routes
+app.use(require('./routes/views').middleware());
 
 app.use(router.middleware());
 
