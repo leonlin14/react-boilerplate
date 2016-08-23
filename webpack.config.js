@@ -5,7 +5,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     entry: {
         app: [
-            path.join(__dirname, 'src', 'js', 'app.js')
+            path.join(__dirname, 'src', 'js', 'app.jsx')
         ],
 		vendors: [
 			'react',
@@ -24,11 +24,11 @@ module.exports = {
     module: {
         loaders: [
         	{
-				test: /\.js?$/,
+				test: /\.(js|jsx)$/,
 				loader: 'babel',
 				exclude: /(node_modules|bower_components)/,
 				query: {
-					presets: [ 'react' ]
+					presets: [ 'react', 'es2015' ]
 				}
 			},
             { test: /\.png$/,  loader: "url-loader?limit=1000" },
