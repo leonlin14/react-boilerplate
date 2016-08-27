@@ -9,7 +9,8 @@ module.exports = {
         ],
 		vendors: [
 			'react',
-			'react-dom'
+			'react-dom',
+			'react-router'
 		]
     },
     output: {
@@ -38,7 +39,8 @@ module.exports = {
         ],
 		noParse: [
 			'react/dist/react.min.js',
-			'react-dom/dist/react-dom.min.js'
+			'react-dom/dist/react-dom.min.js',
+			'react-router/umd/ReactRouter.min.js'
 		]
     },
     externals: {
@@ -47,7 +49,8 @@ module.exports = {
 	resolve: {
 		alias: {
 			'react$': 'react/dist/react.min.js',
-			'react-dom$': 'react-dom/dist/react-dom.min.js'
+			'react-dom$': 'react-dom/dist/react-dom.min.js',
+			'react-router$': 'react-router/umd/ReactRouter.min.js'
 		}
 	}
 };
