@@ -5,6 +5,8 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import LandingPage from '../components/LandingPage.jsx';
 import About from '../components/About.jsx';
 
+require('../less/theme.less');
+
 class App extends React.Component {
 	render() {
 		return (

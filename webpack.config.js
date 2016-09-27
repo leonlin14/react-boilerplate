@@ -32,6 +32,8 @@ module.exports = {
 					presets: [ 'react', 'es2015', 'stage-0' ]
 				}
 			},
+			{ test: /\.css$/, loader: 'style!css' },
+			{ test: /\.less$/, loader: 'style!css!less' },
             { test: /\.png$/,  loader: "url-loader?limit=1000" },
             { test: /\.jpg$/,  loader: "url-loader?limit=1000" },
             { test: /\.gif$/,  loader: "url-loader?limit=1000" },
