@@ -1,45 +1,29 @@
-var koa = require('koa');
-var path = require('path');
-var serve = require('koa-static');
-var Router = require('koa-router');
-var views = require('koa-views');
-var logger = require('koa-logger');
-var locale = require('koa-locale');
+const Koa = require('koa')
+const convert = require('koa-convert')
+const serve = require("koa-static")
+const Router = require('koa-router')
+const views = require('koa-views')
+const path = require('path')
+const config = require('config')
+const logger = require('koa-logger')
 
-// Loading settings
-var settings = require('./lib/config.js');
-if (!settings) {
-	console.error('Failed to load settings');
-	process.exit(1);
-}
+const app = new Koa()
 
-var app = koa();
+app.use(logger())
+
+const router = new Router()
 
 // Static file path
-app.use(serve(path.join(__dirname, 'public')));
+app.use(convert(serve(path.join(__dirname, 'public'))))
 
-// Show server logger
-app.use(logger());
+app.use(views(path.join(__dirname, 'views'), { extension: 'pug' }))
 
-// Setup default locale
-locale(app, 'en-US');
+router.get('/', async (ctx, next) => {
+	await ctx.render('index')
+})
 
-// Create render
-app.use(views(__dirname + '/views', {
-    extension: 'pug',
-    map: {
-        html: 'pug'
-    }
-}));
+app.use(router.routes())
 
-var router = new Router();
-
-// Routes
-app.use(require('./routes/views').middleware());
-
-app.use(router.middleware());
-
-// Start the server
-app.listen(settings.general.server.port, function() {
-	console.log('server is running at port', settings.general.server.port);
-});
+app.listen(config.server.port, () => {
+	console.log("server starting on " + config.server.port)
+})

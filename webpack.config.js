@@ -1,58 +1,70 @@
+process.noDeprecation = true;
+
 var path = require('path');
 var webpack = require('webpack');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+    context: path.join(__dirname, 'src'),
     entry: {
-        app: [
-            path.join(__dirname, 'src', 'js', 'app.jsx')
-        ],
-		vendors: [
-			'react',
-			'react-dom',
-			'react-router'
+        bundle: './app.jsx',
+        vendors: [
+            'babel-polyfill',
+            'react',
+			'react-dom'
 		]
     },
     output: {
-        path: path.join(__dirname, 'public', 'assets'),
+        filename: '[name].js',
         publicPath: '/assets/',
-        filename: "bundle.js"
+        path: path.join(__dirname, 'public', 'assets'),
     },
-	plugins: [
-		new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
-		new webpack.NoErrorsPlugin()
-	],
     module: {
-        loaders: [
-        	{
-				test: /\.(js|jsx)$/,
-				loader: 'babel',
-				exclude: /(node_modules|bower_components)/,
-				query: {
-					presets: [ 'react', 'es2015', 'stage-0' ]
-				}
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                enforce: 'pre',
+                loader: 'babel-loader',
+                options: {
+                    presets: [ 'react', 'es2017', 'stage-0' ]
+                },
+            },
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    use: 'css-loader'
+                })
+            },
+            {
+				test: /\.less$/,
+                use: [{
+                    loader: "style-loader" // creates style nodes from JS strings
+                }, {
+                    loader: "css-loader" // translates CSS into CommonJS
+                }, {
+                    loader: "less-loader" // compiles Less to CSS
+                }]
 			},
-			{ test: /\.css$/, loader: 'style!css' },
-			{ test: /\.less$/, loader: 'style!css!less' },
-            { test: /\.png$/,  loader: "url-loader?limit=1000" },
-            { test: /\.jpg$/,  loader: "url-loader?limit=1000" },
-            { test: /\.gif$/,  loader: "url-loader?limit=1000" },
-            { test: /\.woff$/, loader: "url-loader?limit=1000" }
-        ],
-		noParse: [
-			'react/dist/react.min.js',
-			'react-dom/dist/react-dom.min.js',
-			'react-router/umd/ReactRouter.min.js'
-		]
+			{
+                test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 10000
+                }
+			}
+        ]
     },
-    externals: {
-        jQuery: true
-    },
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendors' // Specify the common bundle's name.
+        })
+    ],
 	resolve: {
-		alias: {
-			'react$': 'react/dist/react.min.js',
-			'react-dom$': 'react-dom/dist/react-dom.min.js',
-			'react-router$': 'react-router/umd/ReactRouter.min.js'
+        extensions: [".js", ".jsx"],
+        alias: {
+            'react$': 'react/dist/react.min.js',
+            'react-dom$': 'react-dom/dist/react-dom.min.js',
+			Source: __dirname + '/src'
 		}
 	}
 };
